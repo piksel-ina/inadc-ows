@@ -3,11 +3,10 @@ name = "ina-dc-ows"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "datacube-ows==1.9.5",
+    "datacube-ows==1.9.13",
     "gunicorn",
-    "gevent",
     "psycopg2",
-    "datacube",
+    "datacube==1.9.18",
     "Pillow",
     "rasterio",
     "netCDF4",

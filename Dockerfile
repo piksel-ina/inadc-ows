@@ -63,8 +63,7 @@ ENV DATACUBE_OWS_CFG=ows_config.ows_cfg.ows_cfg
 
 RUN chown -R ows:ows /env/config
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY --chmod=0755 entrypoint.sh /entrypoint.sh
 
 USER ows
 WORKDIR /home/ows
@@ -72,4 +71,4 @@ WORKDIR /home/ows
 EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "--workers=3", "-k", "gevent", "--timeout", "121", "--log-level", "info", "--worker-tmp-dir", "/dev/shm", "datacube_ows.wsgi"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "--workers=3", "--threads=4", "-k", "gthread", "--timeout", "121", "--log-level", "info", "--worker-tmp-dir", "/dev/shm", "datacube_ows.wsgi"]

@@ -35,6 +35,7 @@ ows_cfg = {
         "published_CRSs": published_CRSs,
         "allowed_urls": allowed_urls,
         "services": services,
+        "load_driver": "rio",
     },
     "wms": wms,
     "wcs": wcs,

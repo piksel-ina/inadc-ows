@@ -1,12 +1,9 @@
 """
 Flood Hazard (Bahaya Banjir 2025) product configuration.
-
-One product per return period rather than a time axis, grouped in a folder so
-clients can present them as a scenario selector rather than a time slider.
 """
 
 from ...common.resource_limits import FLOOD_HAZARD_LIMIT
-from ..bands.flood_hazard import FLOOD_HAZARD_BANDS, FLOOD_HAZARD_BANDS_INFO
+from ..bands.flood_hazard import FLOOD_HAZARD_BANDS_INFO, flood_hazard_bands
 from ..styles.flood_hazard import FLOOD_HAZARD_STYLES
 
 _FLOOD_HAZARD_ABSTRACT = """
@@ -35,8 +32,8 @@ def _build_layer(return_period, suffix, label, aep):
         "title": f"Bahaya Banjir 2025 - Periode Ulang {return_period} Tahun ({aep} AEP)",
         "name": f"flood_hazard_{suffix}",
         "abstract": _FLOOD_HAZARD_ABSTRACT.format(label=label, aep=aep),
-        "product_name": f"flood_hazard_{suffix}",
-        "bands": FLOOD_HAZARD_BANDS,
+        "product_name": "flood_hazard",
+        "bands": flood_hazard_bands(suffix),
         "resource_limits": FLOOD_HAZARD_LIMIT,
         "dynamic": False,
         "time_resolution": "summary",

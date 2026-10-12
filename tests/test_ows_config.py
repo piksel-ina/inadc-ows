@@ -36,11 +36,7 @@ EXPECTED_LAYER_NAMES = {
 EXPECTED_PRODUCT_NAMES = {
     "s2_l2a",
     "s2_geomad_annual",
-    "flood_hazard_rp02",
-    "flood_hazard_rp05",
-    "flood_hazard_rp10",
-    "flood_hazard_rp25",
-    "flood_hazard_rp50",
+    "flood_hazard",
     "ls5_c2l2_sr",
     "ls7_c2l2_sr",
     "ls8_c2l2_sr",
@@ -122,6 +118,19 @@ def test_expected_product_names(named_layers):
     products = {layer["product_name"] for layer in named_layers}
     missing = EXPECTED_PRODUCT_NAMES - products
     assert not missing, f"Missing product names: {missing}"
+
+
+def test_flood_hazard_layers_map_their_return_period(named_layers):
+    flood_layers = [l for l in named_layers if l["name"].startswith("flood_hazard_")]
+    assert len(flood_layers) == 5
+    for layer in flood_layers:
+        suffix = layer["name"].removeprefix("flood_hazard_")
+        assert layer["product_name"] == "flood_hazard"
+        assert layer["bands"] == {
+            f"flood_depth_{suffix}": ["flood_depth", "depth"],
+            f"flood_hazard_index_{suffix}": ["flood_hazard_index", "index", "hazard_index"],
+            f"flood_hazard_class_{suffix}": ["flood_hazard_class", "classified", "hazard_class"],
+        }
 
 
 def test_global_has_published_crss(ows_cfg):

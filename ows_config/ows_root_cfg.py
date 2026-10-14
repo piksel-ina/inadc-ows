@@ -60,6 +60,8 @@ published_CRSs = {
 }
 
 allowed_urls = [
+    "https://ows.piksel.big.go.id",
+    "https://ows-uncached.piksel.big.go.id",
     "https://ows.staging.piksel.big.go.id",
     "https://ows-uncached.staging.piksel.big.go.id",
     "https://*.staging.piksel.big.go.id",

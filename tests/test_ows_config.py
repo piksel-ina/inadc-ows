@@ -142,3 +142,29 @@ def test_services_enabled(ows_cfg):
     services = ows_cfg["global"].get("services", {})
     assert services.get("wms") is True, "WMS not enabled"
     assert services.get("wcs") is True, "WCS not enabled"
+
+
+def test_allowed_urls_default_to_staging(monkeypatch):
+    import importlib
+
+    import ows_config.ows_root_cfg as root
+
+    monkeypatch.delenv("OWS_ALLOWED_URLS", raising=False)
+    importlib.reload(root)
+    assert root.allowed_urls[0] == "https://ows.staging.piksel.big.go.id"
+
+
+def test_allowed_urls_from_env(monkeypatch):
+    import importlib
+
+    import ows_config.ows_root_cfg as root
+
+    monkeypatch.setenv(
+        "OWS_ALLOWED_URLS",
+        "https://ows.piksel.big.go.id, https://ows-uncached.piksel.big.go.id",
+    )
+    importlib.reload(root)
+    assert root.allowed_urls == [
+        "https://ows.piksel.big.go.id",
+        "https://ows-uncached.piksel.big.go.id",
+    ]

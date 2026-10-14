@@ -2,6 +2,8 @@
 Root OWS configuration - global settings
 """
 
+import os
+
 service_title = "DE Indonesia (Piksel) Web Services"
 service_abstract = """
 Data penginderaan jauh dan produk turunannya dari Digital Earth Indonesia (Piksel).
@@ -60,11 +62,14 @@ published_CRSs = {
 }
 
 allowed_urls = [
-    "https://ows.piksel.big.go.id",
-    "https://ows-uncached.piksel.big.go.id",
-    "https://ows.staging.piksel.big.go.id",
-    "https://ows-uncached.staging.piksel.big.go.id",
-    "https://*.staging.piksel.big.go.id",
+    url.strip()
+    for url in os.environ.get(
+        "OWS_ALLOWED_URLS",
+        "https://ows.staging.piksel.big.go.id,"
+        "https://ows-uncached.staging.piksel.big.go.id,"
+        "https://*.staging.piksel.big.go.id",
+    ).split(",")
+    if url.strip()
 ]
 
 

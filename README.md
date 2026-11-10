@@ -7,7 +7,7 @@
 
 OWS (OGC Web Services) for the Indonesia datacube platform, powered by [datacube-ows](https://github.com/opendatacube/datacube-ows).
 
-Requires a PostGIS database with ODC initialised and products indexed. For a quick setup with pre-configured products, use [piksel-core](https://github.com/piksel-ina/piksel-core) — once it's running:
+Requires a PostGIS database with ODC initialised and products indexed. For a quick setup with pre-configured products, use [inadc-odc](https://github.com/piksel-ina/inadc-odc) — once it's running:
 
     make build
     make up
